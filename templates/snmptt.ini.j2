@@ -1,0 +1,113 @@
+[General]
+mode = daemon
+multiple_event = 1
+dns_enable = 1
+strip_domain = 1
+strip_domain_list = <<END
+{% for item in snmptt_strip_domain %}
+{{ item }}
+{% endfor %}
+END
+
+resolve_value_ip_addresses = 0
+net_snmp_perl_enable = 1
+net_snmp_perl_best_guess = 0
+translate_log_trap_oid = 2
+translate_value_oids = 1
+translate_enterprise_oid_format = 1
+translate_trap_oid_format = 1
+translate_varname_oid_format = 1
+translate_integers = 1
+wildcard_expansion_separator = " "
+allow_unsafe_regex = 0
+remove_backslash_from_quotes = 0
+dynamic_nodes = 0
+# No description from MIBs or Conf
+description_mode = 0
+description_clean = 1
+
+[Logging]
+stdout_enable = 0
+log_enable = 1
+log_file = /var/log/snmptt/snmptt.log
+unknown_trap_log_enable = 1
+unknown_trap_log_file = /var/log/snmptt/snmpttunknown.log
+log_system_enable = 1
+log_system_file = /var/log/snmptt/snmpttsystem.log
+statistics_interval = 216000
+syslog_enable = 1
+syslog_facility = local0
+syslog_level_debug = <<END
+END
+syslog_level_info = <<END
+END
+syslog_level_notice = <<END
+END
+syslog_level_warning = <<END
+END
+syslog_level_err = <<END
+END
+syslog_level_crit = <<END
+END
+syslog_level_alert = <<END
+END
+syslog_level = warning
+syslog_system_enable = 1
+syslog_system_facility = local0
+syslog_system_level = warning
+
+[Exec]
+exec_enable = 1
+pre_exec_enable = 1
+unknown_trap_exec = /usr/local/nagios/libexec/submit_check_result_unknowns
+unknown_trap_exec_format = $r SNMP_TRAP 2 $O $*
+# $r is hostname (because we have dns activated, and system should resolve the ip to host)
+# SNMP_TRAP is service name in nagios (service asociated with host
+# 2 is return_code (An integer that determines the state
+#       of the service check, 0=OK, 1=WARNING, 2=CRITICAL,
+#       3=UNKNOWN).
+# $0 is oid translated
+# $* all descriptions translated
+# See http://snmptt.sourceforge.net/docs/snmptt.shtml#SNMPTT.CONF-FORMAT for vars
+
+[Debugging]
+DEBUGGING = 0
+DEBUGGING_FILE = /var/log/snmptt/snmptt.debug
+DEBUGGING_FILE_HANDLER = /var/log/snmptt/snmptthandler.debug
+
+[DaemonMode]
+# Set to 1 to have snmptt fork to the background when run in daemon mode
+# Ignored by Windows.  See documentation
+daemon_fork = 1
+
+# Set to the numerical user id (eg: 500) or textual user id (eg: snmptt)
+# that snmptt should change to when running in daemon mode.  Leave blank
+# to disable.  The user used should have read/write access to all log
+# files, the spool folder, and read access to the configuration files.
+#daemon_uid = 705
+# daemon_uid =
+
+# Amount of time in seconds to sleep between processing spool files
+sleep = 10
+
+# Set to 1 to have SNMPTT use the time that the trap was processed by SNMPTTHANDLER
+# Set to 0 to have SNMPTT use the time the trap was processed.  Note:  Using 0 can
+# result in the time being off by the number of seconds used for 'sleep'
+use_trap_time = 1
+
+# Complete path of file to store process ID when running in daemon mode.
+pid_file = /var/run/snmptt.pid
+
+# Directory to read received traps from.  Ex: /var/spool/snmptt/
+# Don't forget the trailing slash!
+spool_directory = /var/spool/snmptt/
+
+
+[TrapFiles]
+snmptt_conf_files = <<END
+/etc/snmp/snmptt.conf
+/etc/snmp/snmptt.conf.prime
+/etc/snmp/snmptt.conf.cisco.config
+/etc/snmp/snmptt.conf.cisco.if
+/etc/snmp/snmptt.conf.if
+END

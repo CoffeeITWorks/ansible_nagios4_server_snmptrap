@@ -1,0 +1,28 @@
+# file: nagios-server/handlers/main.yml
+
+# Supervisor must be restarted first
+- name: restart supervisor
+  service:
+    name: supervisor
+    state: restarted
+
+- name: restart snmptt
+  service:
+    name: "snmptt"
+    state: restarted
+
+- name: restart snmpd
+  service:
+    name: "snmpd"
+    state: restarted
+
+- name: reload nagios
+  service:
+    name: "{{ nagios_service }}"
+    state: reloaded
+
+- name: restart snmptrapd
+  supervisorctl:
+    name: snmptrapd
+    state: restarted
+

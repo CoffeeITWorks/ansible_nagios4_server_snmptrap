@@ -1,0 +1,29 @@
+define service {
+	name                            SNMP_TRAP
+	service_description             SNMP_TRAP
+	active_checks_enabled           1       ; Active service checks are enabled
+	passive_checks_enabled          1       ; Passive service checks are enabled/accepted
+	parallelize_check               1       ; Active service checks should be parallelized
+	process_perf_data               0
+	obsess_over_service             0       ; We should obsess over this service (if necessary)
+	check_freshness                 0       ; Default is to NOT check service 'freshness'
+	notifications_enabled           1       ; Service notifications are enabled
+	event_handler_enabled           1       ; Service event handler is enabled
+	flap_detection_enabled          1       ; Flap detection is enabled
+	process_perf_data               1       ; Process performance data
+	retain_status_information       1       ; Retain status information across program restarts
+	retain_nonstatus_information    1       ; Retain non-status information across program restarts
+	check_command                   check-host-alive      ; This will be used to reset the service to "OK"
+	is_volatile                     1
+	check_period                    24x7
+	max_check_attempts              1
+	normal_check_interval           1
+	retry_check_interval            1
+	notification_interval           120
+	notification_period             24x7
+	notification_options            w,u,c,r
+	contact_groups                  admins       ; Modify this to match your Nagios contact group definitions
+	check_interval      			120 ; Don't clear for 2 hours
+	notes							This service is automatically cleared every 2hs, so please create ticket if is alerted. Also ensure to attach all details in status information, as it could be any event from snmp trap.
+	register                        0
+}

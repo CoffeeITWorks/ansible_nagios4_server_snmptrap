@@ -1,0 +1,16 @@
+---
+
+snmptt_strip_domain:
+  - testdomain.net
+nagios_etc: '/usr/local/nagios/etc'
+nagios_config_cfg_dir: "{{ nagios_etc }}/conf.d"
+nagios_service: "nagios"
+nagios_update_hosts_file: false
+
+hosts_names: false
+# example:
+# hosts_names:
+#   - { name: "hostname", ip: "addres" }
+
+nagios_update_hosts_pip_dependencies:
+  - pynag

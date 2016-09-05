@@ -1,0 +1,104 @@
+# Variables
+
+- include: multi_os.yml
+
+# Installation
+- name: Install SNMPTrap dependencies
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ snmptrap_dependencies }}"
+
+# Configs
+
+- name: Configure SNMP Templates
+  template: 
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    owner: 'root'
+    group: 'root'
+    mode: 0644
+  with_items:
+    - { src: 'snmptrapd.conf.j2', dest: '/etc/snmp/snmptrapd.conf' }
+    - { src: 'snmptrap_service.cfg.j2', dest: "{{ nagios_config_cfg_dir }}/snmptrap_service.cfg" }
+    - { src: 'snmptt.ini.j2', dest: "/etc/snmp/snmptt.ini" }
+    - { src: 'snmp.conf.j2', dest: "/etc/snmp/snmp.conf" }
+  notify: 
+   - restart snmptt
+   - restart snmpd
+   - reload nagios
+
+- name: copy snmptt translated MIBs
+  copy:
+    src: "snmptt/"
+    dest: "/etc/snmp/"
+    owner: "root"
+    group: "root"
+    mode: "755"
+  notify:
+    - restart snmptt
+
+- name: copy other downloaded mibs
+  copy:
+    src: "mibs/"
+    dest: "/usr/share/snmp/mibs/"
+    owner: "root"
+    group: "root"
+    mode: "755"
+  notify:
+    - restart snmptt
+    - restart snmpd
+
+#- name: copy hp downloaded mibs
+#  copy:
+#    src: "mibs_available/hp/"
+#    dest: "/usr/share/snmp/mibs/"
+#    owner: "root"
+#    group: "root"
+#    mode: "755"
+#  notify:
+#    - restart snmptt
+#    - restart snmpd
+
+#- name: clone mibs from netdisco-mibs (git)
+#  git:  repo="http://git.code.sf.net/p/netdisco/mibs"
+#        dest="/var/lib/mibs/netdisco-mibs"
+#        update=yes
+#        force=yes
+#  notify:
+#    - restart snmpd
+#    - restart snmptt
+
+# Executables
+
+- name: Configure commands for Plugins
+  copy:
+    src: "files/submit_check_result"
+    dest: "/usr/local/nagios/libexec/submit_check_result"
+    owner: "root"
+    group: "root"
+    mode: "755"
+
+- name: Configure commands for snmptt unknowns
+  copy:
+    src: "files/submit_check_result_unknowns"
+    dest: "/usr/local/nagios/libexec/submit_check_result_unknowns"
+    owner: "root"
+    group: "root"
+    mode: "755"
+
+
+# Logrotate
+# Not required, it's already on package
+
+# Service handler:
+
+- include: supervisor.yml
+
+# HOSTS file handle:
+# DNS is enabled, the agent IP address is converted to a host name using a DNS lookup.
+# see more in snmptt.ini original file
+
+- include: hosts.yml
+  tags: config_nagios
+

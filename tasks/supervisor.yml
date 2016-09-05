@@ -1,0 +1,40 @@
+
+- name: Install supervisor
+  package: 
+    name: supervisor
+    state: latest
+
+- name: configure supervisor logrotate
+  template:
+    src: supervisor_logrotate.j2
+    dest: /etc/logrotate.d/supervisor
+
+- name: ensure supervisor is running
+  service:
+    name: supervisor
+    state: started
+
+- name: ensure supervisor is enabled
+  service:
+    name: supervisor
+    enabled: yes
+    
+- name: configure supervisor service
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: "snmptrapd-supervisor.j2", dest: "/etc/supervisor/conf.d/snmptrapd-service.conf" }
+  register: supervisor
+  notify:
+    - restart snmptrapd
+
+# Supervisor must be restarted first
+- name: Read supervisor config
+  supervisorctl:
+    name: snmptrapd
+    state: present
+  when: supervisor.changed
+
+- name: ensure handlers runs before continue
+  meta: flush_handlers

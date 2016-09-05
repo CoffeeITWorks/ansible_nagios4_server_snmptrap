@@ -1,0 +1,10 @@
+ignoreauthfailure no
+disableAuthorization yes
+traphandle default /usr/sbin/snmptthandler --ini=/etc/snmp/snmptt.ini
+
+# But snmtthandler requires to be sure that snmptt is running and working fine as daemon.
+# requires snmptt.ini with mode = daemon
+
+# If you need to check if snmptt works standalone you can use:
+# traphandle default /usr/sbin/snmptt
+# requires snmptt.ini as mode = standalone

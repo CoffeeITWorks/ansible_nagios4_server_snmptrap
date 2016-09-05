@@ -1,0 +1,29 @@
+[program:snmptrapd]
+priority=400
+redirect_stderr=true
+command=snmptrapd -c /etc/snmp/snmptrapd.conf -On -f -L o,e -p /var/run/snmptrapd.pid
+
+# Explanation of cmd line options used:
+# -c FILE Read FILE as a configuration file (or a comma-separated list of configuration files).
+# -f      Do not fork() from the calling shell.
+# -L[efos]
+# -Le    Log messages to the standard error stream.
+# -Lo    Log messages to the standard output stream.
+# -O [abeEfnqQsStTuUvxX]
+# -On    Displays the OID numerically: https://www.zabbix.com/forum/showthread.php?t=28071
+#
+# -p FILE Save the process ID of the trap daemon in FILE.
+# Created by: Pablo Estigarribia (pablodav at gmail)
+# DATE:
+
+autostart=true
+autorestart=true
+stdout_logfile=/var/log/supervisor/snmptrapd_log.log
+stderr_logfile=/var/log/supervisor/snmptrapd_error.log
+stdout_logfile_maxbytes=4MB
+stdout_logfile_backups=10
+stdout_capture_maxbytes=1MB
+stderr_logfile_maxbytes=4MB
+stderr_logfile_backups=10
+stderr_capture_maxbytes=1MB
+# user=someuser

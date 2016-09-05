@@ -1,0 +1,57 @@
+#!/bin/bash
+# UTF-8, Line separator: LF
+#
+# SUBMIT_CHECK_RESULT
+# Written by Ethan Galstad (egalstad@nagios.org)
+# Last Modified: 30-08-2016
+# Pablo Estigarribia (pablodav@gmail.com): added parse of args for unknown types
+#
+# This script will write a command to the Nagios command
+# file to cause Nagios to process a passive service check
+# result.  Note: This script is intended to be run on the
+# same host that is running Nagios.  If you want to
+# submit passive check results from a remote machine, look
+# at using the nsca addon.
+#
+# Arguments:
+#  $1 = "$1 $2 $3 '$4'"
+#  $1 Will be translated to arg1, arg2, arg3, arg4.
+# Original file had:
+#  $1 = host_name (Short name of host that the service is
+#       associated with)
+#  $2 = svc_description (Description of the service)
+#  $3 = return_code (An integer that determines the state
+#       of the service check, 0=OK, 1=WARNING, 2=CRITICAL,
+#       3=UNKNOWN).
+#  $4 = plugin_output (A text string that should be used
+#       as the plugin output for the service check)
+#
+
+# Start translating string to args:
+args="$1"
+
+# echo "all args: $args"
+
+arg1=$(echo $args |cut -d' ' -f1)
+arg2=$(echo $args |cut -d' ' -f2)
+arg3=$(echo $args |cut -d' ' -f3)
+arg4=$args
+
+# echo "arg1 = $arg1"
+# echo "arg2 = $arg2"
+# echo "arg3 = $arg3"
+# echo "arg4 = $arg4"
+# End translating string to args
+
+echocmd="/bin/echo"
+
+CommandFile="/usr/local/nagios/var/rw/nagios.cmd"
+
+# get the current date/time in seconds since UNIX epoch
+datetime=`date +%s`
+
+# create the command line to add to the command file using translated args
+cmdline="[$datetime] PROCESS_SERVICE_CHECK_RESULT;$arg1;$arg2;$arg3;$arg4"
+
+# append the command to the end of the command file
+`$echocmd $cmdline >> $CommandFile`

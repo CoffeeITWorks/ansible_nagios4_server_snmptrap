@@ -49,6 +49,7 @@
     - restart snmptt
     - restart snmpd
 
+# During testing I have found problems compiling all those mibs and moved to netdisco mibs.
 #- name: copy hp downloaded mibs
 #  copy:
 #    src: "mibs_available/hp/"
@@ -60,11 +61,12 @@
 #    - restart snmptt
 #    - restart snmpd
 
-#- name: clone mibs from netdisco-mibs (git)
-#  git:  repo="http://git.code.sf.net/p/netdisco/mibs"
-#        dest="/var/lib/mibs/netdisco-mibs"
-#        update=yes
-#        force=yes
+- name: clone mibs from netdisco-mibs (git)
+  git:  repo="http://git.code.sf.net/p/netdisco/mibs"
+        dest="/var/lib/mibs/netdisco-mibs"
+        update=yes
+        force=yes
+# restart of services is not required on this step so I have commented these lines.
 #  notify:
 #    - restart snmpd
 #    - restart snmptt

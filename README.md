@@ -36,7 +36,14 @@ Download MIBs
 
 How I downloaded mibs to files/mibs?
 
-wget -c ftp://ftp.cisco.com/pub/mibs/v2/*-MIB.my 
+    wget -c ftp://ftp.cisco.com/pub/mibs/v2/*-MIB.my 
+
+I didn't add all mibs. 
+I have also cloned netdisco mibs to `/var/lib/mibs/netdisco-mibs`
+And uncommented cisco and rfc lines in `/etc/snmp/snmp.conf`
+example: 
+
+    mibdirs +/var/lib/mibs/netdisco-mibs/rfc
 
 Translate MIBs
 ==============

@@ -21,7 +21,7 @@ define service {
 	retry_check_interval            1
 	notification_interval           120
 	notification_period             24x7
-	notification_options            w,u,c,r
+	notification_options            u,c,r     ; Will not send email for warnings
 	contact_groups                  admins       ; Modify this to match your Nagios contact group definitions
 	check_interval      			120 ; Don't clear for 2 hours
 	notes							This service is automatically cleared every 2hs, so please create ticket if is alerted. Also ensure to attach all details in status information, as it could be any event from snmp trap.

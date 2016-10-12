@@ -22,8 +22,9 @@ wildcard_expansion_separator = " "
 allow_unsafe_regex = 0
 remove_backslash_from_quotes = 0
 dynamic_nodes = 0
-# No description from MIBs or Conf
-description_mode = 0
+# Very useful to use descriptions from MIBS in alerts
+# http://snmptt.sourceforge.net/docs/snmptt.shtml#SNMPTT.CONF-FORMAT
+description_mode = 2
 description_clean = 1
 
 [Logging]
@@ -60,14 +61,16 @@ syslog_system_level = warning
 exec_enable = 1
 pre_exec_enable = 1
 unknown_trap_exec = /usr/local/nagios/libexec/submit_check_result_unknowns
-unknown_trap_exec_format = $r SNMP_TRAP 2 $O $*
+unknown_trap_exec_format = $r SNMP_TRAP 2 $E$O $* description: $D
 # $r is hostname (because we have dns activated, and system should resolve the ip to host)
 # SNMP_TRAP is service name in nagios (service asociated with host
 # 2 is return_code (An integer that determines the state
 #       of the service check, 0=OK, 1=WARNING, 2=CRITICAL,
 #       3=UNKNOWN).
+# $E enterprise OID translated
 # $0 is oid translated
 # $* all descriptions translated
+# $D description from OID MIBS
 # See http://snmptt.sourceforge.net/docs/snmptt.shtml#SNMPTT.CONF-FORMAT for vars
 
 [Debugging]

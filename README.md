@@ -77,6 +77,8 @@ Same done with snmptt.conf.cisco.config so config traps will be OK.
 
 You can use these examples to help extending th required translations for your needs and then make a pull request to incorporate them on this role.
 
+Is very recommendable to add also $E$0 and description: $D to the command of the translated file.conf, it will help a lot on daily operation.
+
 Cisco Configuration
 ===================
 

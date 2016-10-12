@@ -36,5 +36,10 @@
     state: present
   when: supervisor.changed
 
+- name: start snmptrapd
+  supervisorctl:
+    name: snmptrapd
+    state: started
+  
 - name: ensure handlers runs before continue
   meta: flush_handlers

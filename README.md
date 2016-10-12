@@ -34,16 +34,19 @@ We don't use meta dependencies due to the lack of option to not run the dependen
 Download MIBs
 =============
 
+I have added this comment before discovered netdisco-mibs, use only netdisco-mibs as they work better with net-snmp. 
 How I downloaded mibs to files/mibs?
 
     wget -c ftp://ftp.cisco.com/pub/mibs/v2/*-MIB.my 
 
 I didn't add all mibs. 
 I have also cloned netdisco mibs to `/var/lib/mibs/netdisco-mibs`
-And uncommented cisco and rfc lines in `/etc/snmp/snmp.conf`
+And uncommented cisco and rfc lines in `/etc/snmp/snmp.conf` (It's on `templates/snmp.conf.j2`)
 example: 
 
     mibdirs +/var/lib/mibs/netdisco-mibs/rfc
+
+Now some notes are also added to `/etc/snmp/snmp.conf` with description about why it is used.
 
 Translate MIBs
 ==============
@@ -188,6 +191,7 @@ You can test with
 HP Configuration and MIBs
 =========================
 
+I have saved this link before discovered netdisco-mibs, I would recommend to use only netdisco-mibs configured in /etc/snmp/snmp.conf
 ftp://ftp.hp.com/pub/softlib2/software1/pubsw-windows/p307788654/v46168/upd800mib.zip 
 
 Nagios Configuration: 
@@ -254,6 +258,34 @@ You can also define a variable with fixed hosts to add to hosts file:
 
 See more:
 https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/passivechecks.html 
+
+Normal operation
+================
+
+Once you have all working, you can logon to your nagios server and use `snmptranslate` to get more info about the trap received: 
+
+example1: 
+
+    snmptranslate  1.3.6.1.4.1.25506.2.4.2.1 -T d
+
+example2: 
+
+    snmptranslate  -On HH3C-CONFIG-MAN-MIB::hh3cCfgManEventlog -T d
+	
+It will give you information like:
+
+```
+HH3C-CONFIG-MAN-MIB::hh3cCfgManEventlog
+hh3cCfgManEventlog NOTIFICATION-TYPE
+  -- FROM       HH3C-CONFIG-MAN-MIB
+  OBJECTS       { hh3cCfgLogSrcCmd, hh3cCfgLogSrcData, hh3cCfgLogDesData }
+  DESCRIPTION   "The object calculates the checksum on the current config per 10 minutes and
+        even if it is different from the saved config but if a trap has been sent
+        with the same checksum then don't send again until the checksum is different."
+::= { iso(1) org(3) dod(6) internet(1) private(4) enterprises(1) hh3c(25506) hh3cCommon(2) hh3cConfig(4) hh3cConfigManNotifications(2) 1 }
+```
+
+If the OID is not translated, you can play with /etc/snmp/snmp.conf and uncomment some other line to add more mibs, then use `snmptranslate` to see result. 
 
 References
 ==========

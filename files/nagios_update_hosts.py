@@ -98,6 +98,8 @@ if replace_list:
     remove(file_path)
     #Move new file
     move(abs_path, file_path)
+	#Allow users to read, change octal mode to 0644
+	os.chmod(file_path, 0o644)
 
 print("Updated lines: {} \n "
       "Appended lines: {} \n"

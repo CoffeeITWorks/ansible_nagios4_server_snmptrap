@@ -7,9 +7,18 @@ from tempfile import mkstemp
 from shutil import move
 from os import remove, close
 import re
+import time
 
 nagios_config = '/usr/local/nagios/etc/nagios.cfg'
 nagios_sock = '/usr/local/nagios/var/rw/live.sock'
+
+# Implemented wait for nagios socket
+wcount = 0
+while not os.path.exists(nagios_sock):
+    time.sleep(1)
+    wcount +=1
+    if wcount >= 60:
+        raise SystemExit("Wait timeout exceed {} for socket: {}".format(wcount, nagios_sock))
 
 p = Parsers.Livestatus(livestatus_socket_path=nagios_sock, nagios_cfg_file=nagios_config)
 

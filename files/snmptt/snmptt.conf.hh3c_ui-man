@@ -1,0 +1,49 @@
+#
+#
+#
+#
+MIB: HH3C-UI-MAN-MIB (file:/var/lib/mibs/netdisco-mibs/h3c/hh3c-ui-man.mib) converted on Thu Nov 24 11:59:01 2016 using snmpttconvertmib v1.4
+#
+#
+#
+EVENT hh3cLogIn .1.3.6.1.4.1.25506.2.2.1.1.3.0.1 "Status Events" Normal
+FORMAT $*
+EXEC /usr/local/nagios/libexec/submit_check_result $r SNMP_TRAP 0 "$E$O $* description: $D"
+SDESC
+
+This notification is generated when a user logs in.
+
+Variables:
+  1: hh3cTerminalUserName
+  2: hh3cTerminalSource
+EDESC
+#
+#
+#
+EVENT hh3cLogOut .1.3.6.1.4.1.25506.2.2.1.1.3.0.2 "Status Events" Normal
+FORMAT $*
+EXEC /usr/local/nagios/libexec/submit_check_result $r SNMP_TRAP 0 "$E$O $* description: $D"
+SDESC
+
+This notification is generated when a user logs out.
+
+Variables:
+  1: hh3cTerminalUserName
+  2: hh3cTerminalSource
+EDESC
+#
+#
+#
+EVENT hh3cLogInAuthenFailure .1.3.6.1.4.1.25506.2.2.1.1.3.0.3 "Status Events" Warning
+FORMAT $*
+EXEC /usr/local/nagios/libexec/submit_check_result $r SNMP_TRAP 1 "$E$O $* description: $D"
+SDESC
+
+This notification is generated when a user fails to log in
+because of authentication.
+
+Variables:
+  1: hh3cTerminalUserName
+  2: hh3cTerminalSource
+  3: hh3cTerminalUserAuthFailureReason
+EDESC

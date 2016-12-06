@@ -14,3 +14,5 @@ hosts_names: false
 
 nagios_update_hosts_pip_dependencies:
   - pynag
+
+nagios_live_sock: '/usr/local/nagios/var/rw/live.sock'

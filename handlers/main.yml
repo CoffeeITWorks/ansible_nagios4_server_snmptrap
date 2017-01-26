@@ -5,6 +5,7 @@
   service:
     name: supervisor
     state: restarted
+    sleep: 5
 
 - name: restart snmptt
   service:

@@ -53,10 +53,11 @@ Translate MIBs
 
 NOTE: SNMP_TRAP is de service name that it will submit the check result
 
+
 Example 1: 
 
-snmpttconvertmib --in=/usr/share/snmp/mibs/SNMPv2-MIB.my --out=/etc/snmp/snmptt.conf.prime --exec='/usr/local/nagios/libexec/submit_check_result $r SNMP_TRAP 1'
-snmpttconvertmib --in=/usr/share/snmp/mibs/CISCO-CONFIG-MAN-MIB.my --out=/etc/snmp/snmptt.conf.cisco.config --exec='/usr/local/nagios/libexec/submit_check_result $r SNMP_TRAP 1'
+snmpttconvertmib --in=/var/lib/mibs/netdisco-mibs/rfc/SNMPv2-MIB.txt--out=/etc/snmp/snmptt.conf.prime --exec='/usr/local/nagios/libexec/submit_check_result $r SNMP_TRAP 1'
+snmpttconvertmib --in=/var/lib/mibs/cisco/CISCO-CONFIG-MAN-MIB.my --out=/etc/snmp/snmptt.conf.cisco.config --exec='/usr/local/nagios/libexec/submit_check_result $r SNMP_TRAP 1'
 
 Example 2:
 
@@ -189,6 +190,25 @@ You can test with
 
     snmptranslate -On CISCO-RHINO-MIB::ciscoLS1010ChassisFanLed
     .1.3.6.1.4.1.9.5.11.1.1.12  # should resolve this.
+    
+*Get details to search the MIB to translate*
+
+```
+snmptranslate -On CISCO-SMI::cisco.0.1 -Td
+Bad operator (INTEGER): At line 73 in /var/lib/mibs/ietf/SNMPv2-PDU
+.1.3.6.1.4.1.9.0.1
+cisco MODULE-IDENTITY
+  -- FROM       CISCO-SMI, CAT2600-MIB, CISCO-ES-STACK-MIB, CISCO-ADAPTER-MIB
+  DESCRIPTION   "The Structure of Management Information for the
+        Cisco enterprise."
+::= { iso(1) org(3) dod(6) internet(1) private(4) enterprises(1) cisco(9) 0 1 }
+
+locate CISCO-SMI
+/var/lib/mibs/netdisco-mibs/cisco/CISCO-SMI.my
+
+also you can search with grep 'description' -r /var/lib/mibs
+
+```
 
 HP Configuration and MIBs
 =========================

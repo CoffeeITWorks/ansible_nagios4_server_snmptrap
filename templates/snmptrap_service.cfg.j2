@@ -1,3 +1,5 @@
+# https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/objectdefinitions.html
+
 define service {
 	name                            SNMP_TRAP
 	service_description             SNMP_TRAP
@@ -17,8 +19,6 @@ define service {
 	is_volatile                     1
 	check_period                    24x7
 	max_check_attempts              1
-	normal_check_interval           1
-	retry_check_interval            1
 	notification_interval           120
 	notification_period             24x7
 	notification_options            u,c,r     ; Will not send email for warnings

@@ -1,15 +1,15 @@
 # As the snmp packages come without MIB files due to license reasons, loading
 # of MIBs is disabled by default. If you added the MIBs you can reenable
 # loading them by commenting out the following line.
-# mibs :
-mibs +ALL
+mibs :
+# mibs +ALL
 mibdirs +/var/lib/mibs/iana
 mibdirs +/var/lib/mibs/ietf
 #mibdirs +/var/lib/mibs/netdisco-mibs/3com
 #mibdirs +/var/lib/mibs/netdisco-mibs/aerohive
 #mibdirs +/var/lib/mibs/netdisco-mibs/alcatel
 #mibdirs +/var/lib/mibs/netdisco-mibs/allied
-#mibdirs +/var/lib/mibs/netdisco-mibs/apc
+mibdirs +/var/lib/mibs/netdisco-mibs/apc
 #mibdirs +/var/lib/mibs/netdisco-mibs/arista
 #mibdirs +/var/lib/mibs/netdisco-mibs/aruba
 #mibdirs +/var/lib/mibs/netdisco-mibs/asante
@@ -66,5 +66,5 @@ mibdirs +/var/lib/mibs/netdisco-mibs/rfc
 #mibdirs +/var/lib/mibs/netdisco-mibs/sixnet
 #mibdirs +/var/lib/mibs/netdisco-mibs/sonicwall
 #mibdirs +/var/lib/mibs/netdisco-mibs/trapeze
-#mibdirs +/var/lib/mibs/netdisco-mibs/vmware
+mibdirs +/var/lib/mibs/netdisco-mibs/vmware
 #mibdirs +/var/lib/mibs/netdisco-mibs/xirrus

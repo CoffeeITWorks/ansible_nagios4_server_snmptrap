@@ -10,3 +10,4 @@ snmptrap_dependencies:
   - snmp-mibs-downloader
   - supervisor
   - snmp
+  - git

@@ -6,6 +6,7 @@
     name: supervisor
     state: restarted
     sleep: 5
+  when: snmptrap_config_supervisor
 
 - name: restart snmptt
   service:
@@ -26,4 +27,5 @@
   supervisorctl:
     name: snmptrapd
     state: restarted
+  when: snmptrap_config_supervisor
 

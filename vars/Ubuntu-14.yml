@@ -12,6 +12,5 @@ snmptrap_dependencies:
   - snmp
   - git
   - python-pip
-  - snmptrapd
 
-snmptrap_config_supervisor: true
+snmptrap_config_supervisor: false

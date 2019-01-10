@@ -27,6 +27,7 @@
    - restart snmptt
    - restart snmpd
    - reload nagios
+   - restart snmptrapd systemd
 
 - name: copy snmptt translated MIBs
   copy:
@@ -111,3 +112,4 @@
 
 - include: hosts.yml
   tags: config_nagios
+

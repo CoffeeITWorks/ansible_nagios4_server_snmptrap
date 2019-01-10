@@ -8,7 +8,6 @@ snmptrap_dependencies:
   - libnet-snmp-perl
   - libsnmp-info-perl
   - snmp-mibs-downloader
-  - supervisor
   - snmp
   - git
   - python-pip

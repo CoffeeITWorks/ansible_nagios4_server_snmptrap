@@ -29,3 +29,9 @@
     state: restarted
   when: snmptrap_config_supervisor
 
+- name: restart snmptrapd systemd
+  supervisorctl:
+    name: snmptrapd
+    state: restarted
+  when: not snmptrap_config_supervisor
+

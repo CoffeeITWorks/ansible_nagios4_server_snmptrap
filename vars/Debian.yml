@@ -1,0 +1,17 @@
+---
+
+snmptrap_dependencies:
+  - snmptt
+  - libnet-snmp-perl
+  - libconfig-inifiles-perl
+  - libsnmp-mib-compiler-perl
+  - libnet-snmp-perl
+  - libsnmp-info-perl
+  - snmp-mibs-downloader
+  - snmp
+  - git
+  - python-pip
+  - snmptrapd
+
+snmptrap_config_supervisor: false
+

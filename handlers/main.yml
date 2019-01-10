@@ -6,6 +6,7 @@
     name: supervisor
     state: restarted
     sleep: 5
+  when: snmptrap_config_supervisor
 
 - name: restart snmptt
   service:
@@ -21,9 +22,22 @@
   service:
     name: "{{ nagios_service }}"
     state: reloaded
+  notify: restart nagios
+
+- name: restart nagios
+  service:
+    name: "{{ nagios_service }}"
+    state: restarted
 
 - name: restart snmptrapd
   supervisorctl:
     name: snmptrapd
     state: restarted
+  when: snmptrap_config_supervisor
+
+- name: restart snmptrapd systemd
+  service:
+    name: snmptrapd
+    state: restarted
+  when: not snmptrap_config_supervisor
 

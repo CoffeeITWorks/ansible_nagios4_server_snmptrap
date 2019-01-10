@@ -10,3 +10,8 @@ snmptrap_dependencies:
   - snmp-mibs-downloader
   - supervisor
   - snmp
+  - git
+  - python-pip
+
+snmptrap_config_supervisor: true
+

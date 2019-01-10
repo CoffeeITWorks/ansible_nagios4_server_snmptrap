@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    nagios_update_hosts_file: true
+  roles:
+    - role: ansible-role-nagios
+    - role: coffeeitworks.ansible_nagios4_server_config
+    - role: coffeeitworks.ansible_nagios4_checkmk_livestatus
+    - role: ansible_nagios4_server_snmptrap

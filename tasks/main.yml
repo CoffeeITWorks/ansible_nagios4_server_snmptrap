@@ -27,6 +27,7 @@
    - restart snmptt
    - restart snmpd
    - reload nagios
+   - restart snmptrapd systemd
 
 - name: copy snmptt translated MIBs
   copy:
@@ -96,6 +97,14 @@
 # Service handler:
 
 - include: supervisor.yml
+  when: snmptrap_config_supervisor
+
+- name: start snmptrapd with systemd
+  service:
+    name: snmptrapd
+    state: started
+    enabled: yes
+  when: not snmptrap_config_supervisor
 
 # HOSTS file handle:
 # DNS is enabled, the agent IP address is converted to a host name using a DNS lookup.

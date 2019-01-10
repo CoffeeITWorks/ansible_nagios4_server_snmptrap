@@ -22,6 +22,12 @@
   service:
     name: "{{ nagios_service }}"
     state: reloaded
+  notify: restart nagios
+
+- name: restart nagios
+  service:
+    name: "{{ nagios_service }}"
+    state: restarted
 
 - name: restart snmptrapd
   supervisorctl:

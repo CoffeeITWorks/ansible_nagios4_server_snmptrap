@@ -30,7 +30,7 @@
   when: snmptrap_config_supervisor
 
 - name: restart snmptrapd systemd
-  supervisorctl:
+  service:
     name: snmptrapd
     state: restarted
   when: not snmptrap_config_supervisor

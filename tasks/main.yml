@@ -63,7 +63,7 @@
 #    - restart snmpd
 
 - name: clone mibs from netdisco-mibs (git)
-  git:  repo="http://git.code.sf.net/p/netdisco/mibs"
+  git:  repo="{{ snmp_netdisco_mibs_repo }}"
         dest="/var/lib/mibs/netdisco-mibs"
         update=yes
         force=yes

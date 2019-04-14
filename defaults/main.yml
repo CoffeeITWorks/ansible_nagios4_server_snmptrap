@@ -69,3 +69,5 @@ snmptt_trap_files:
   - /etc/snmp/snmptt.conf.hh3c-config
   - /etc/snmp/snmptt.conf.hh3c-sys-man
   - /etc/snmp/snmptt.conf.hh3c_ui-man
+
+snmp_netdisco_mibs_repo: "https://github.com/netdisco/netdisco-mibs.git"

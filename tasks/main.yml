@@ -94,6 +94,15 @@
 # Logrotate
 # Not required, it's already on package
 
+# The snmptrapd is not real systemd unit file, it is old /etc/init.d/snmptrapd
+# but systemd creates automatically a unit for it to handle the script
+- name: enable snmptrapd defaults
+  lineinfile:
+    dest: "{{ snmptrapd_default }}"
+    regexp: 'TRAPDRUN='
+    line: "TRAPDRUN=y"
+  notify: restart snmptrapd systemd
+
 # Service handler:
 
 - include: supervisor.yml
@@ -112,4 +121,3 @@
 
 - include: hosts.yml
   tags: config_nagios
-

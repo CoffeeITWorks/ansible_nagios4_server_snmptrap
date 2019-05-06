@@ -100,7 +100,7 @@
   lineinfile:
     dest: "{{ snmptrapd_default }}"
     regexp: 'TRAPDRUN='
-    line: "TRAPDRUN=y"
+    line: "TRAPDRUN=yes"
   notify: restart snmptrapd systemd
 
 # Service handler:

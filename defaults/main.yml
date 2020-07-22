@@ -71,3 +71,9 @@ snmptt_trap_files:
   - /etc/snmp/snmptt.conf.hh3c_ui-man
 
 snmp_netdisco_mibs_repo: "https://github.com/netdisco/netdisco-mibs.git"
+
+mib_dir_list: false
+# Optionally define mibdirs to be added to snmp.conf, example:
+# mib_dir_list:
+#   - /var/lib/mibs/aruba_202005
+#   - /var/lib/mibs/hp_202003

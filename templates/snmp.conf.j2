@@ -68,3 +68,9 @@ mibdirs +/var/lib/mibs/netdisco-mibs/rfc
 #mibdirs +/var/lib/mibs/netdisco-mibs/trapeze
 mibdirs +/var/lib/mibs/netdisco-mibs/vmware
 #mibdirs +/var/lib/mibs/netdisco-mibs/xirrus
+
+# Support additional mibdirs specified on mib_dir_list
+{% if mib_dir_list %}
+{% for l in mib_dir_list %}
+  mibdirs +{{ l }}{% endfor %}
+{% endif %}

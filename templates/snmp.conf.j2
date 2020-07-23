@@ -68,3 +68,9 @@ mibdirs +/var/lib/mibs/netdisco-mibs/rfc
 #mibdirs +/var/lib/mibs/netdisco-mibs/trapeze
 mibdirs +/var/lib/mibs/netdisco-mibs/vmware
 #mibdirs +/var/lib/mibs/netdisco-mibs/xirrus
+
+# Support additional mibdirs specified on nagios4_snmp_mib_dir_list
+{% if nagios4_snmp_mib_dir_list %}
+{% for l in nagios4_snmp_mib_dir_list %}
+  mibdirs +{{ l }}{% endfor %}
+{% endif %}

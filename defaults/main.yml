@@ -72,8 +72,8 @@ snmptt_trap_files:
 
 snmp_netdisco_mibs_repo: "https://github.com/netdisco/netdisco-mibs.git"
 
-mib_dir_list: false
+nagios4_snmp_mib_dir_list: []
 # Optionally define mibdirs to be added to snmp.conf, example:
-# mib_dir_list:
+# nagios4_snmp_mib_dir_list:
 #   - /var/lib/mibs/aruba_202005
 #   - /var/lib/mibs/hp_202003

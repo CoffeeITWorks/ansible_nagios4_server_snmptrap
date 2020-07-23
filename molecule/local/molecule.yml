@@ -7,8 +7,11 @@ dependency:
     role-file: requirements.yml
 driver:
   name: docker
-lint:
-  name: yamllint
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+  flake8
 platforms:
 
   - name: ansible_test-01
@@ -63,13 +66,9 @@ provisioner:
           - name: client_to_remove
           - name: other_client_to_remove
         burp_server_port_per_operation_bool: true
-  lint:
-    name: ansible-lint
 
 scenario:
   name: local
 
 verifier:
   name: testinfra
-  lint:
-    name: flake8

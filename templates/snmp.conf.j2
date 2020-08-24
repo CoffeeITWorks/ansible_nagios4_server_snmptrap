@@ -72,5 +72,6 @@ mibdirs +/var/lib/mibs/netdisco-mibs/vmware
 # Support additional mibdirs specified on nagios4_snmp_mib_dir_list
 {% if nagios4_snmp_mib_dir_list %}
 {% for l in nagios4_snmp_mib_dir_list %}
-  mibdirs +{{ l }}{% endfor %}
+mibdirs +{{ l }}
+{% endfor %}
 {% endif %}

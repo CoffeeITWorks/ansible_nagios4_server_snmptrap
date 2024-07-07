@@ -1,6 +1,6 @@
 # Variables
 
-- include: multi_os.yml
+- import_tasks: multi_os.yml
 
 # Installation
 - name: Install SNMPTrap dependencies
@@ -119,5 +119,5 @@
 # DNS is enabled, the agent IP address is converted to a host name using a DNS lookup.
 # see more in snmptt.ini original file
 
-- include: hosts.yml
+- import_tasks: hosts.yml
   tags: config_nagios
